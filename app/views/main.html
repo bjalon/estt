@@ -1,0 +1,43 @@
+<div ng-controller="EmprunterCtrl">
+    <div class="row">
+        <div class="col-md-5 text-center">
+            <form>
+                <div class="row form-value">
+                    <div class="col-md-3">
+                        <img src="images/reliure.png" alt="quoi">
+                    </div>
+                    <div class="col-md-9">
+                        <input ng-class="{error: !isIdValide()}" ng-model="docRef" type="text" id="ref" placeholder="123-456-789">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        <img src="images/ecoliere.png" alt="qui">
+                    </div>
+                    <div class="col-md-9 form-value">
+                        <select class="select2-bibliotheque" ng-model="userRef" ui-select2 ng-model="select2"
+                                data-placeholder="Ex: Monique">
+                            <option value=""></option>
+                            <option value="morveillon">Monique Orveillon</option>
+                            <option value="mjalon">Monique Jalon</option>
+                            <option value="jjalon">Juliette Jalon</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="control-group">
+                    <div class="controls">
+                        <button type="submit" class="btn-success btn">Emprunter</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+        <div ng-hide="getCurrentDocument() == null" class="col-md-3">
+            <img class="jaquette" ng-src="{{getCurrentDocument().jaquette}}" alt="jaquette">
+        </div>
+        <div class="col-md-4 resume-bibliotheque">
+           {{getCurrentDocument().description}}
+        </div>
+    </div>
+
+</div>

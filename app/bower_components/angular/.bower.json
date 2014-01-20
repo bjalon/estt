@@ -1,0 +1,16 @@
+{
+  "name": "angular",
+  "version": "1.2.8-build.2105+sha.c77b2bc",
+  "main": "./angular.js",
+  "dependencies": {},
+  "homepage": "https://github.com/angular/bower-angular",
+  "_release": "1.2.8-build.2105+sha.c77b2bc",
+  "_resolution": {
+    "type": "version",
+    "tag": "v1.2.8-build.2105+sha.c77b2bc",
+    "commit": "0b96b2a80f16b06bbfc16d6031da5d02682f3f6f"
+  },
+  "_source": "git://github.com/angular/bower-angular.git",
+  "_target": "1.2.8-build.2105+sha.c77b2bc",
+  "_originalSource": "angular"
+}
