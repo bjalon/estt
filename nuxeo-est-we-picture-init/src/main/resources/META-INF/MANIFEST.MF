@@ -1,0 +1,14 @@
+Manifest-Version: 1.0
+Nuxeo-WebModule: org.nuxeo.ecm.webengine.app.WebEngineModule;name=init
+ ;package=org/nuxeo/est/we;extends=base
+Bundle-Vendor: Nuxeo
+Bundle-ActivationPolicy: lazy
+Bundle-ClassPath: .
+Bundle-Version: 1.0.qualifier
+Bundle-Name: nuxeo-est-webengine
+Nuxeo-Component: OSGI-INF/extensions/org.nuxeo.est.operation.InitFromI
+ SBN.xml
+Bundle-ManifestVersion: 2
+Bundle-SymbolicName: nuxeo-est-webengine
+Bundle-RequiredExecutionEnvironment: JavaSE-1.7
+
