@@ -25,9 +25,7 @@ angular.module('nuxeoBibliothequeFrontApp')
     	  $http({method: 'GET', url: '/nuxeo/site/front/livre/' + $scope.livreRef}).
 			success(function(data, status, headers, config) {
 			    $scope.livre = data;
-			    $scope.livreId = $scope.livre['ecm:uuid'];
-			    $scope.jaquetteURL = '/nuxeo/nxfile/default/' + $scope.livreId + '/blobholder:0/test' + $scope.livre['file:filename'];
-			    $scope.description = $scope.livre['dc:description'];
+			    $scope.livre.jaquetteURL = '/nuxeo/nxfile/default/' + $scope.livre['ecm:uuid'] + '/blobholder:0/test' + $scope.livre['file:filename'];
 		  }).
 		  error(function(data, status, headers, config) {
 		    $scope.invalidLivre();
@@ -36,9 +34,6 @@ angular.module('nuxeoBibliothequeFrontApp')
     	
     	$scope.invalidLivre = function() {
 			    $scope.livre = null;
-			    $scope.livreId = null;
-			    $scope.jaquetteURL = null;
-			    $scope.description = null;			    
     	}
     }); 
 

@@ -22,21 +22,23 @@
           	  		    id="livre-name" placeholder="Identifiant du Livre - exemple : 100-001">
     	  		</div>
             </div>
-      	    <div ng-hide="livreId == null" class="col-sm-3">
+            <div ng-hide="livre['ecm:uuid'] == null">
+      	    <div class="col-sm-3">
                 <center>
-      		        <img height="150px" class="jaquette" ng-src="{{jaquetteURL}}" alt="jaquette">
+      		        <img height="150px" class="jaquette" ng-src="{{livre['jaquetteURL']}}" alt="jaquette">
                 </center>
     	    </div>
-            <div ng-hide="livreId == null" class="col-sm-5">
+            <div ng-hide="livre['ecm:uuid'] == null" class="col-sm-5">
               <div class="">
                 <label for="bookTitle">Titre</label>
                 <div id="bookTitle">{{livre['dc:title']}}</div>
               </div>
               <div class="">
                 <label for="bookDescription">Description</label>
-                <div id ="bookDescription">{{description}}</div>
+                <div id ="bookDescription">{{livre['dc:description']}}</div>
               </div>
               
+            </div>
             </div>
       	</div>
 
@@ -47,9 +49,7 @@
                     <center style="padding: 10px;">
                         <img height="100px" class="eleve" src="${skinPath}/img/emprunteur.png" alt="eleve">
                     </center>
-                    <!-- ng-change="fetchEleve()"  -->
-                    <!--<input type="hidden" style="width: 100%;" id="eleveIdentifiant" ng-model="username">-->
-                    <select ui-select2 id="eleveIdentifiant" style="width: 100%;" ng-model="username" 
+                    <select ng-change="fetchEleve()" ui-select2 id="eleveIdentifiant" style="width: 100%;" ng-model="username" 
                       placeholder="Nom de l'emprunteur - ex : Juliette JALON ou Classe 3">
                         <option value=""></option>
                         <option value="morveillon">Monique Orveillon</option>
@@ -57,20 +57,29 @@
                         <option value="jjalon">Juliette Jalon</option>
                         <option value="Administrator">Benjamin JALON</option>
                     </select>
-                    <button ng-click="info()" class="btn">Test</button>
                 </div>
             </div>
-            <div ng-hide="eleveId == null" class="col-sm-3">
+            <div ng-hide="eleve['ecm:uuid'] == null">            
+            <div class="col-sm-3">
                 <center>
-                    <img height="150px" class="eleve" ng-src="{{photoURL}}" alt="eleve">
+                    <img height="150px" class="eleve" ng-src="{{eleve['photoURL']}}" alt="eleve">
                 </center>
             </div>
-            <div ng-hide="eleveId == null" class="col-sm-5">
+            <div class="col-sm-5">
               <label>Prénom</label>
               <div>{{eleve['firstName']}}</div>
               <label>Nom</label>
               <div>{{eleve['lastName']}}</div>
             </div>
+            </div>
+        </div>
+        <!-- **************************** ELEVE ***************************** -->
+        <div class="row" style="padding-top: 20px">
+          <div class="col-sm-4 panel panel-default">
+            <div class="panel-body">
+              <button class="btn btn-success">Emprunter</button>
+            </div>
+          </div>
         </div>
       </form>
 

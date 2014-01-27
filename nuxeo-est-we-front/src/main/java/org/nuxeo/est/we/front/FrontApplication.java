@@ -18,6 +18,8 @@ import org.nuxeo.ecm.core.api.CoreSession;
 import org.nuxeo.ecm.core.api.DocumentModel;
 import org.nuxeo.ecm.core.api.DocumentModelList;
 import org.nuxeo.ecm.platform.usermanager.UserManager;
+import org.nuxeo.ecm.platform.userworkspace.api.UserWorkspaceService;
+import org.nuxeo.ecm.user.center.profile.UserProfileService;
 import org.nuxeo.ecm.webengine.model.WebObject;
 import org.nuxeo.ecm.webengine.model.impl.ModuleRoot;
 import org.nuxeo.runtime.api.Framework;
@@ -32,7 +34,9 @@ import org.nuxeo.runtime.api.Framework;
 @WebObject(type="FrontApplication")
 public class FrontApplication extends ModuleRoot {
 
-    @GET
+    private UserProfileService userProfileService;
+
+	@GET
     public Object doGet() {
         return getView("emprunt");
     }
@@ -66,16 +70,13 @@ public class FrontApplication extends ModuleRoot {
     @Produces("text/json; charset=UTF-8")
     public Object getEleve(@PathParam("id") String username) throws ClientException {
     	CoreSession session = ctx.getCoreSession();
-    	String query = String.format("SELECT * FROM UserProfile WHERE ecm:isProxy = 0 AND ecm:isVersion = 0 AND dc:creator = '%s'", username);
-    	DocumentModelList docs = session.query(query);
+
+    	UserProfileService ups = getUserProfileService();
+    	DocumentModel userProfile = ups.getUserProfileDocument(username, session);
     	
-    	if (docs.size() != 1) {
-    		return null;
-    	}
-    	UserManager service = Framework.getLocalService(UserManager.class);
-    	DocumentModel user = service.getUserModel(username);
+    	UserManager um = Framework.getLocalService(UserManager.class);
+    	DocumentModel user = um.getUserModel(username);
     	
-    	DocumentModel userProfile = docs.get(0);
 		Map<String, Object> map = user.getProperties("user");
     	map.put("ecm:uuid", userProfile.getId());
     	map.put("ecm:path", userProfile.getPathAsString());
@@ -83,6 +84,17 @@ public class FrontApplication extends ModuleRoot {
     	JSONObject json = new JSONObject(map);
     	
         return json.toString();
+    }
+
+    protected UserProfileService getUserProfileService() throws ClientException {
+        if (userProfileService == null) {
+            try {
+                userProfileService = Framework.getService(UserProfileService.class);
+            } catch (Exception e) {
+                throw new ClientException("Failed to get UserProfileService", e);
+            }
+        }
+        return userProfileService;
     }
 
 }
