@@ -5,7 +5,6 @@
 <div class="container">
 	<p class="lead">
 	  Sélectionner la photo pour le Livre <b>${Document.title}</b>
-      <#if Document['livre:auteur'] != null && (not (Document['livre:auteur'].isEmpty()))>(${Document['livre:auteur']})</#if>
 	</p>
 	<div class="row-fluid">
 	<form class="form" action="${Root.path}/nxid/${Document.id}/@file" method="POST" enctype="multipart/form-data">
