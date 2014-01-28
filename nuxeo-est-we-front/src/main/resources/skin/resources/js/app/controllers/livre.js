@@ -12,10 +12,6 @@ angular.module('nuxeoBibliothequeFrontApp')
             return false;
         }
         
-        $scope.getLivre = function() {
-          slkjfdsfl
-        }
-
     	$scope.fetchLivre = function() {
     	  if (!$scope.isIdLivreValide()) {
     	    $scope.invalidLivre();

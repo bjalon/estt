@@ -10,7 +10,7 @@
 
 <@block name="content">
 
-    <form class="form-horizontal">
+    <form action="${Root.path}/emprunt" class="form-horizontal" method="post">
         <!-- **************************** LIVRE ***************************** -->
       	<div class="row" style="padding-top: 20px" ng-controller="LivreCtrl">
       		<div class="col-sm-4 panel panel-default">
@@ -19,7 +19,8 @@
                         <img height="100px" class="eleve" src="${skinPath}/img/livre.png" alt="eleve">
                     </center>
           	  		  <input ng-change="fetchLivre()" type="text" class="form-control" ng-model="livreRef"
-          	  		    id="livre-name" placeholder="Identifiant du Livre - exemple : 100-001">
+          	  		    id="refLivre" placeholder="Identifiant du Livre - exemple : 100-001">
+          	  		  <input type="hidden" value="{{livre['ecm:uuid']}}" name="idLivre">
     	  		</div>
             </div>
             <div ng-hide="livre['ecm:uuid'] == null">
@@ -50,7 +51,7 @@
                         <img height="100px" class="eleve" src="${skinPath}/img/emprunteur.png" alt="eleve">
                     </center>
                     <select ng-change="fetchEleve()" ui-select2 id="eleveIdentifiant" style="width: 100%;" ng-model="username" 
-                      placeholder="Nom de l'emprunteur - ex : Juliette JALON ou Classe 3">
+                      placeholder="Nom de l'emprunteur - ex : Juliette JALON ou Classe 3" name="username">
                         <option value=""></option>
                         <option value="morveillon">Monique Orveillon</option>
                         <option value="mjalon">Monique Jalon</option>
@@ -67,9 +68,9 @@
             </div>
             <div class="col-sm-5">
               <label>Prénom</label>
-              <div>{{eleve['firstName']}}</div>
+              <div>{{eleve['firstname']}}</div>
               <label>Nom</label>
-              <div>{{eleve['lastName']}}</div>
+              <div>{{eleve['lastname']}}</div>
             </div>
             </div>
         </div>
