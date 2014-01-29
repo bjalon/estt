@@ -71,6 +71,7 @@ public class FrontApplication extends ModuleRoot {
 		DocumentModelList docs = session.query(query);
 
 		if (docs.size() != 1) {
+			log.error("Can't find book available for this reference: " + id);
 			return null;
 		}
 
