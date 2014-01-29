@@ -1,30 +1,65 @@
-<@extends src="base.ftl">
-<@block name="header">You signed in as ${Context.principal}</@block>
+<!DOCTYPE html>
+<html ng-app='nuxeoBibliothequeFrontApp'>
+<head>
+	<title>Ecole Sainte Thérèse - Bibliothèque</title>
 
-<@block name="content">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/>
 
-<div style="margin: 10px 10px 10px 10px">
-<p>
-This is the view corresponding to your root object: ${This.class.simpleName}.
-</p>
+    <link rel="stylesheet" href="${skinPath}/bower_components/select2/select2.css">
+	<link rel="stylesheet" href="${skinPath}/bower_components/bootstrap/dist/css/bootstrap.min.css">
 
-<p>
-You can find the code of this view in: src/main/resources/skin/views/${This.class.simpleName}
-</p>
+	<script type="text/javascript" src="]bower_components/jquery/jquery.js"></script>
+	<script type="text/javascript" src="${skinPath}/bower_components/select2/select2.js"></script>
+	<script type="text/javascript" src="${skinPath}/bower_components/angular/angular.js"></script>
+	<script type="text/javascript" src="${skinPath}/bower_components/angular-ui-select2/src/select2.js"></script>
+	<script type="text/javascript" src="${skinPath}/bower_components/bootstrap/dist/js/bootstrap.js"></script>
 
-<p>
-To render a view from an WebEngine object you should create @GET annotated method which is returning the view: getView("viewname") where <i>viewname</i> is the file name (without the ftl extension) in the views/ObjectName folder.   
-</p>
+	<script src="${skinPath}/js/app/app.js"></script>
+	<script src="${skinPath}/js/app/controllers/emprunt.js"></script>
+	<script src="${skinPath}/js/app/controllers/restitution.js"></script>
+	<script src="${skinPath}/js/app/controllers/recherche.js"></script>
 
-<p>
-In a view you can access the object instance owning the view using ${r"${This}"} variable or the request context using the ${r"${Context}"} variable.  
-</p>
+	<script src="${skinPath}/js/app/controllers/eleve.js"></script>
+	<script src="${skinPath}/js/app/controllers/livre.js"></script>
 
-<p>
-Also, you can use @block statements to create reusable layouts.
-</p>
+</head>
+<body >
 
-</div>
+  <div class="navbar navbar-inverse navbar-static-top" ng-controller="NavigationCtrl">
+  	<div class="container">
+      <button class="navbar-toggle" data-toggle="collapse" data-target=".navbarHeader">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+  	  <a class="navbar-brand" src="#">Bibliothèque</a>
+      <div class="collapse navbar-collapse navbarHeader">
+        <ul class="nav navbar-nav navbar-right">
+          <li ng-class="{active : currentView = 'emprunt'}" >
+            <a href="./emprunt">Emprunt</a>
+          </li>
+          <li ng-class="{active : currentView = 'restitution'}">
+            <a href="./restitution">Restitution</a>
+          </li>
+          <li ng-class="{active : currentView = 'rechercher'}">
+            <a href="./rechercher">Rechercher</a>
+          </li>
+        </ul>
+      </div>
+  	</div>
 
-</@block>
-</@extends>
+  </div>
+
+
+  <div class="container" ng-view>
+  </div>
+
+
+  <div class="navbar navbar-inverse navbar-static-bottom">
+  	<div class="container">
+  	  Picture by <a href="http://www.flickr.com/photos/mikejsolutions/2444102219">mikejsolutions</a> / CC BY
+  	</div>
+  </div>
+</body>
+</html>
