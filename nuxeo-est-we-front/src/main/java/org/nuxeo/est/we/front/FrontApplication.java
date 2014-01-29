@@ -111,32 +111,35 @@ public class FrontApplication extends ModuleRoot {
 	}
 
 	@POST
-    @Path("emprunt")
-    public Object getTotoPost() throws InvalidChainException, OperationException, Exception {
-    	String idLivre = ctx.getForm().getString("idLivre");
-    	String username = ctx.getForm().getString("username");
-    	log.debug(String.format("New book borrowed => Username : %s / idLivre : %s", username, idLivre));
-    	
-    	CoreSession session = ctx.getCoreSession();
-    	if (idLivre == null || idLivre.isEmpty() || username == null || username.isEmpty()) {
-    		return "idLivre et username doivent être non nuls. Veuillez contacter l'administrateur "
-    				+ "en lui indiquant comment vous avez produit le problème (pas à pas).";
-    	}
-    	IdRef idRef = new IdRef(idLivre);
-    	DocumentModel borrower = getUserManager().getUserModel(username);
-    	if (!session.exists(idRef) | borrower == null) {
-    		
-    	}
-    	DocumentModel livre = session.getDocument(idRef);
-    	OperationContext ctx = new OperationContext(session);
-    	ctx.setInput(livre);
-    	ctx.put("borrower", username);
-    	
-    	getAutomationService().run(ctx, "rest_emprunter");
-    	
-    	
-    	return doGet();
-    }
+	@Path("emprunt")
+	public Object getTotoPost() throws InvalidChainException,
+			OperationException, Exception {
+		String idLivre = ctx.getForm().getString("idLivre");
+		String username = ctx.getForm().getString("username");
+		log.debug(String.format(
+				"New book borrowed => Username : %s / idLivre : %s", username,
+				idLivre));
+
+		CoreSession session = ctx.getCoreSession();
+		if (idLivre == null || idLivre.isEmpty() || username == null
+				|| username.isEmpty()) {
+			return "idLivre et username doivent être non nuls. Veuillez contacter l'administrateur "
+					+ "en lui indiquant comment vous avez produit le problème (pas à pas).";
+		}
+		IdRef idRef = new IdRef(idLivre);
+		DocumentModel borrower = getUserManager().getUserModel(username);
+		if (!session.exists(idRef) | borrower == null) {
+
+		}
+		DocumentModel livre = session.getDocument(idRef);
+		OperationContext ctx = new OperationContext(session);
+		ctx.setInput(livre);
+		ctx.put("borrower", username);
+
+		getAutomationService().run(ctx, "rest_emprunter");
+
+		return doGet();
+	}
 
 	protected UserProfileService getUserProfileService() throws ClientException {
 		if (userProfileService == null) {
@@ -165,8 +168,7 @@ public class FrontApplication extends ModuleRoot {
 	protected UserManager getUserManager() throws ClientException {
 		if (userManager == null) {
 			try {
-				userManager = Framework
-						.getService(UserManager.class);
+				userManager = Framework.getService(UserManager.class);
 			} catch (Exception e) {
 				throw new ClientException("Failed to get UserManager", e);
 			}
