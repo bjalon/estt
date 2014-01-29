@@ -30,6 +30,10 @@ To test the front without installing Nuxeo (need python installed on your deskto
 * launch `python -m SimpleHTTPServer 8888`
 * Open your browser to [http://localhost:8888/app](http://localhost:8888/app)
 
+Data you can play with :
+- Ref Book : use 005 => book not borrowed
+- Ref Book : use 006 => book not borrowed by Administrator
+- Ref User : Administrator => picture and metadata available
 
 ===
 

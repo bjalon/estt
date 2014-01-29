@@ -14,11 +14,11 @@ angular.module('nuxeoBibliothequeFrontApp', [
       })
       .when('/restitution', {
         templateUrl: 'views/restitution.html',
-        controller: 'EmpruntCtrl'
+        controller: 'RestitutionCtrl'
       })
       .when('/recherche', {
         templateUrl: 'views/recherche.html',
-        controller: 'EmpruntCtrl'
+        controller: 'RechercheCtrl'
       })
       .otherwise({
         redirectTo: '/emprunt'

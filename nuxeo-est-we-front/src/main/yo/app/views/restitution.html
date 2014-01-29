@@ -1,3 +1,33 @@
-<div>
-  restitution
-</div>
+    <form action="./restitution" class="form-horizontal" method="post">
+        <!-- **************************** LIVRE ***************************** -->
+      	<div class="row" style="padding-top: 20px">
+      		<div class="col-sm-4 panel panel-default">
+    	  	  	<div class="form-group panel-body">
+                    <center style="padding: 10px;">
+                        <img height="100px" class="eleve" src="./images/livre.png" alt="eleve">
+                    </center>
+          	  		  <input ng-change="fetchLivre()" type="text" class="form-control" ng-model="livreRef"
+          	  		    id="refLivre" placeholder="Identifiant du Livre - exemple : 100-001">
+          	  		  <input type="hidden" value="{{livre['ecm:uuid']}}" name="idLivre">
+    	  		</div>
+            </div>
+      	    <div class="col-sm-3" ng-hide="livre['ecm:uuid'] == null">
+                <center>
+      		        <img height="150px" class="jaquette" ng-src="{{livre['jaquetteURL']}}" alt="jaquette">
+                </center>
+    	    </div>
+            <div class="col-sm-3" ng-hide="eleve['ecm:uuid'] == null">
+                <center>
+                    <img height="150px" class="eleve" ng-src="{{eleve['photoURL']}}" alt="eleve">
+                </center>
+            </div>
+        </div>
+        <div class="row" style="padding-top: 20px">
+          <div class="col-sm-4 panel panel-default">
+            <div class="panel-body">
+              <button class="btn btn-success">Restituer</button>
+            </div>
+          </div>
+        </div>
+      </form>
+
