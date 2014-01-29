@@ -50,17 +50,6 @@ public class FrontApplication extends ModuleRoot {
 	private UserManager userManager;
 
 	@GET
-	public Object getToto() {
-		return redirect(getPath() + "/emprunt");
-	}
-
-	@GET
-	@Path("emprunt")
-	public Object doGet() {
-		return getView("emprunt");
-	}
-
-	@GET
 	@Path("livre/{id}")
 	@Produces("text/json; charset=UTF-8")
 	public Object getLivre(@PathParam("id") String id) throws ClientException {
@@ -110,36 +99,6 @@ public class FrontApplication extends ModuleRoot {
 		return json.toString();
 	}
 
-	@POST
-	@Path("emprunt")
-	public Object getTotoPost() throws InvalidChainException,
-			OperationException, Exception {
-		String idLivre = ctx.getForm().getString("idLivre");
-		String username = ctx.getForm().getString("username");
-		log.debug(String.format(
-				"New book borrowed => Username : %s / idLivre : %s", username,
-				idLivre));
-
-		CoreSession session = ctx.getCoreSession();
-		if (idLivre == null || idLivre.isEmpty() || username == null
-				|| username.isEmpty()) {
-			return "idLivre et username doivent être non nuls. Veuillez contacter l'administrateur "
-					+ "en lui indiquant comment vous avez produit le problème (pas à pas).";
-		}
-		IdRef idRef = new IdRef(idLivre);
-		DocumentModel borrower = getUserManager().getUserModel(username);
-		if (!session.exists(idRef) | borrower == null) {
-
-		}
-		DocumentModel livre = session.getDocument(idRef);
-		OperationContext ctx = new OperationContext(session);
-		ctx.setInput(livre);
-		ctx.put("borrower", username);
-
-		getAutomationService().run(ctx, "rest_emprunter");
-
-		return doGet();
-	}
 
 	protected UserProfileService getUserProfileService() throws ClientException {
 		if (userProfileService == null) {
