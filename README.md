@@ -22,6 +22,16 @@ To Start using it :
 * And now you can go into yourservernameorip:8080/nuxeo/site/front to use the application.
 
 ===
+To test the front without installing Nuxeo (need python installed on your desktop):
+
+* Download this project as [zip](https://github.com/bjalon/estt/archive/master.zip) (or clone it)
+* Unzip it
+* Open a terminal into the $UNZIPPED_SOURCE/nuxeo-est-we-front/src/main/yo
+* launch `python -m SimpleHTTPServer 8888`
+* Open your browser to [http://localhost:8888/app](http://localhost:8888/app)
+
+
+===
 
 20140120 : First commit - nothing is working yet
 20140128 : Now Application initialization works, Picture importer works and borrow works
