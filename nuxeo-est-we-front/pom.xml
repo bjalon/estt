@@ -4,9 +4,9 @@
   <modelVersion>4.0.0</modelVersion>
 
   <parent>
-    <groupId></groupId>
-    <artifactId></artifactId>
-    <version></version>
+    <groupId>org.nuxeo</groupId>
+    <artifactId>nuxeo-ecm</artifactId>
+    <version>5.8</version>
   </parent>
 
   <groupId>org.nuxeo.est.we</groupId>
@@ -17,6 +17,9 @@
     
   </description>
 
+  <properties>
+  	  <nuxeo.addon.version>5.8</nuxeo.addon.version>
+  </properties>
   <dependencies>
     <dependency>
       <groupId>javax.ws.rs</groupId>
@@ -40,6 +43,32 @@
       <groupId>commons-codec</groupId>
       <artifactId>commons-codec</artifactId>
       <optional>false</optional>
+    </dependency>
+    <dependency>
+      <groupId>org.json</groupId>
+      <artifactId>json</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.nuxeo.ecm.platform</groupId>
+      <artifactId>nuxeo-platform-usermanager-api</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.nuxeo.runtime</groupId>
+      <artifactId>nuxeo-runtime</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.nuxeo.ecm.automation</groupId>
+      <artifactId>nuxeo-automation-core</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.nuxeo.ecm.platform</groupId>
+      <artifactId>nuxeo-user-profile</artifactId>
+      <version>${nuxeo.addon.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.nuxeo.ecm.platform</groupId>
+      <artifactId>nuxeo-user-center</artifactId>
+      <version>${nuxeo.addon.version}</version>
     </dependency>
   </dependencies>
 
