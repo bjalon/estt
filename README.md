@@ -24,9 +24,11 @@ To Start using it :
 ===
 To test the front without installing Nuxeo (need python installed on your desktop):
 
+* Install [maven](http://maven.apache.org/download.cgi)
 * Download this project as [zip](https://github.com/bjalon/estt/archive/master.zip) (or clone it)
 * Unzip it
 * Open a terminal into the $UNZIPPED_SOURCE/nuxeo-est-we-front/src/main/yo
+* Start maven : `mvn install`
 * launch `python -m SimpleHTTPServer 8888`
 * Open your browser to [http://localhost:8888/app](http://localhost:8888/app)
 
