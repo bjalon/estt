@@ -15,6 +15,7 @@ angular.module('nuxeoBibliothequeFrontApp')
     	$scope.fetchLivre = function() {
     	  if (!$scope.isIdLivreValide()) {
     	    $scope.invalidLivre();
+		    $scope.eleve = null;
     	    return;
     	  } 
 
@@ -32,6 +33,7 @@ angular.module('nuxeoBibliothequeFrontApp')
 		  }).
 		  error(function(data, status, headers, config) {
 		    $scope.invalidLivre();
+		    $scope.eleve = null;
 		  });
     	}
     	
