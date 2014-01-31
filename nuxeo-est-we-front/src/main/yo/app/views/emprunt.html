@@ -18,7 +18,9 @@
                 <center>
       		        <img height="150px" class="jaquette" ng-src="{{livre['jaquetteURL']}}" alt="jaquette">
                 </center>
+                <a href="{{livre['jaquetteURL']}}">hoho</a>
     	    </div>
+    	    
             <div ng-hide="livre['ecm:uuid'] == null" class="col-sm-5">
               <div class="">
                 <label for="bookTitle">Titre</label>
@@ -40,13 +42,9 @@
                     <center style="padding: 10px;">
                         <img height="100px" class="eleve" src="./images/emprunteur.png" alt="eleve">
                     </center>
-                    <select ng-change="fetchEleve()" ui-select2 id="eleveIdentifiant" style="width: 100%;" ng-model="username" 
+                    <input type="hidden" ui-select2="select2eleveSetup" id="eleveIdentifiant" style="width: 100%;" ng-model="query.term" 
                       placeholder="Nom de l'emprunteur - ex : Juliette JALON ou Classe 3" name="username">
                         <option value=""></option>
-                        <option value="morveillon">Monique Orveillon</option>
-                        <option value="mjalon">Monique Jalon</option>
-                        <option value="jjalon">Juliette Jalon</option>
-                        <option value="Administrator">Benjamin JALON</option>
                     </select>
                 </div>
             </div>
@@ -62,6 +60,7 @@
               <label>Nom</label>
               <div>{{eleve['lastname']}}</div>
             </div>
+            
             </div>
         </div>
         <!-- **************************** ELEVE ***************************** -->

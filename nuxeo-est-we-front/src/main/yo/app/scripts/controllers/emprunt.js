@@ -43,5 +43,27 @@ angular.module('nuxeoBibliothequeFrontApp')
 			    $scope.eleve = null;
 		  });
     	} 
+
+	    $scope.select2eleveSetup = {
+	       minimumInputLength: 1,
+	       query: function (query) {
+	         var username = query.term, i;
+	
+	         $http({method: 'GET', url: '/nuxeo/site/front/search/eleve/' + username}).
+	            success(function(eleves, status, headers, config) {
+	               // TODO : Check if array
+	               var index;
+	               var data = {results: []};
+	               for (index = 0; index < eleves.length; ++index) {
+	                 data.results.push({ id: eleves[index]['value'], text: eleves[index]['text'] });
+	                 query.callback(data);
+	               }
+	         }).
+	         error(function(data, status, headers, config) {
+	                $scope.eleve = null;
+	         });
+	       }
+	    }
+
     }); 
 
