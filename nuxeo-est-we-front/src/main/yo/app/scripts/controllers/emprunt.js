@@ -1,8 +1,8 @@
 'use strict';
 
 angular.module('nuxeoBibliothequeFrontApp')
-    .controller('EmpruntCtrl', function ($scope, $http, $location) {
-
+    .controller('EmpruntCtrl', function ($routeParams, $scope, $http, $location) {
+    
         var idSize = 3;
 
         $scope.isIdLivreValide = function () {
@@ -63,6 +63,23 @@ angular.module('nuxeoBibliothequeFrontApp')
 	         });
 	       }
 	    }
+
+    	$scope.params = $routeParams;
+    	$scope.livreRef = $scope.params.livreRef;
+    	
+    	if ($scope.livreRef) {
+    	  $scope.fetchLivre();
+    	}
+    	
+    	$scope.reset = function() {
+    	  $scope.eleve = null;
+    	  $scope.invalidLivre();
+    	}
+    	
+    	$scope.emprunter = function() {
+    	  alert("emprunter");
+    	  $location.path('/emprunt_resume/' + $scope.livreRef);
+    	}
 
     }); 
 

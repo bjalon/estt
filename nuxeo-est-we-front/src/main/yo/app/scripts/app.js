@@ -12,6 +12,10 @@ angular.module('nuxeoBibliothequeFrontApp', [
         templateUrl: 'views/emprunt.html',
         controller: 'EmpruntCtrl'
       })
+      .when('/emprunt_resume/:livreRef', {
+        templateUrl: 'views/emprunt_resume.html',
+        controller: 'EmpruntCtrl'
+      })
       .when('/restitution', {
         templateUrl: 'views/restitution.html',
         controller: 'RestitutionCtrl'

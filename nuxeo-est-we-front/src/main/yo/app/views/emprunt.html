@@ -1,6 +1,6 @@
 
 
-    <form action="./restitution" class="form-horizontal" method="post">
+    <form class="form-horizontal">
         <!-- **************************** LIVRE ***************************** -->
       	<div class="row" style="padding-top: 20px">
       		<div class="col-sm-4 panel panel-default">
@@ -67,7 +67,13 @@
         <div class="row" style="padding-top: 20px">
           <div class="col-sm-4 panel panel-default">
             <div class="panel-body">
-              <button class="btn btn-success">Restituer</button>
+              <button ng-click="emprunter()" class="btn btn-success">
+                <!--ng-disabled="form.$invalid || isUnchanged(user)">-->
+                Restituer
+              </button>
+              <button ng-click="reset()" class="btn btn-error">
+                Annuler
+              </button>
             </div>
           </div>
         </div>
