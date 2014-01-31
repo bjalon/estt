@@ -1,1 +1,36 @@
-{"livre:auteur":"\"Tom Clancy\"","file:filename":"SSN_cover.jpg","ecm:uuid":"1a1df591-cd82-4c05-8c45-bdcca9b1825e","dc:nature":null,"dc:created":"","dc:language":null,"dc:coverage":null,"dc:expired":null,"livre:dateEmprunt":null}
+{
+  "livre:auteur":"Alexandre Dumas",
+  "ecm:uuid":"ed8c63cb-3292-4a9c-af37-006027f1206a",
+  "dc:description":"Roman d'aventure retraçant la vie palpitante des mousquetaires du Roi Soleil",
+  "livre:references":{
+  	"etat":null,
+  	"reference":null
+  },
+  "dc:rights":null,
+  "livre:dateParution":null,
+  "dc:subjects":[],
+  "dc:format":null,
+  "dc:valid":null,
+  "file:filename":"SSN_cover.jpg",
+  "jaquetteURL":"/nuxeo/nxfile/default/1a1df591-cd82-4c05-8c45-bdcca9b1825e/blobholder:0/SSN_cover.jpg",
+  "ecm:path":"/default-domain/fable-fontaine",
+  "dc:lastContributor":"Administrator",
+  "dc:title":"Les Fables de la Fontaine",
+  "livre:etiquetteCote":"006",
+  "livre:emprunteur":null,
+  "livre:classe":"r-000/010",
+  "dc:creator":"Administrator",
+  "livre:icone":null,
+  "dc:contributors":["Administrator"],
+  "dc:source":null,
+  "livre:etat":"",
+  "livre:isbn":"12342",
+  "dc:publisher":null,
+  "livre:dateRestitutionPrevue":null,
+  "dc:issued":null,
+  "livre:editeur":"",
+  "dc:language":null,
+  "dc:coverage":null,
+  "dc:expired":null,
+  "livre:dateEmprunt":null
+}

@@ -4,27 +4,27 @@
 
 package org.nuxeo.est.we.front;
 
+import java.io.Serializable;
+import java.util.Collections;
+import java.util.HashMap;
 import java.util.Map;
 
 import javax.ws.rs.GET;
-import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.json.JSONArray;
 import org.json.JSONObject;
 import org.nuxeo.ecm.automation.AutomationService;
-import org.nuxeo.ecm.automation.InvalidChainException;
-import org.nuxeo.ecm.automation.OperationContext;
-import org.nuxeo.ecm.automation.OperationException;
 import org.nuxeo.ecm.core.api.Blob;
 import org.nuxeo.ecm.core.api.ClientException;
 import org.nuxeo.ecm.core.api.CoreSession;
 import org.nuxeo.ecm.core.api.DocumentModel;
 import org.nuxeo.ecm.core.api.DocumentModelList;
-import org.nuxeo.ecm.core.api.IdRef;
+import org.nuxeo.ecm.core.api.model.PropertyException;
 import org.nuxeo.ecm.platform.usermanager.UserManager;
 import org.nuxeo.ecm.user.center.profile.UserProfileService;
 import org.nuxeo.ecm.webengine.model.WebObject;
@@ -55,7 +55,7 @@ public class FrontApplication extends ModuleRoot {
 	public Object getLivre(@PathParam("id") String id) throws ClientException {
 		CoreSession session = ctx.getCoreSession();
 		String query = String
-				.format("SELECT * FROM Livre WHERE ecm:isProxy = 0 AND ecm:isVersion = 0 AND livre:reference = '%s' AND ecm:currentLifeCycleState = 'disponible'",
+				.format("SELECT * FROM Livre WHERE ecm:isProxy = 0 AND ecm:isVersion = 0 AND livre:etiquetteCote = '%s' AND ecm:currentLifeCycleState = 'disponible'",
 						id);
 		DocumentModelList docs = session.query(query);
 
@@ -70,8 +70,12 @@ public class FrontApplication extends ModuleRoot {
 		map.put("ecm:uuid", livre.getId());
 		map.put("ecm:path", livre.getPathAsString());
 		map.put("file:filename", livre.getPropertyValue("file:filename"));
+		if (livre.getPropertyValue("file:filename") != null){
+			String jaquetteURL = "/nuxeo/nxfile/default/" + livre.getId() + "/blobholder:0/" + livre.getPropertyValue("file:filename");
+			map.put("jaquetteURL", jaquetteURL);
+		}
 		JSONObject json = new JSONObject(map);
-
+		
 		return json.toString();
 	}
 
@@ -80,25 +84,80 @@ public class FrontApplication extends ModuleRoot {
 	@Produces("text/json; charset=UTF-8")
 	public Object getEleve(@PathParam("id") String username)
 			throws ClientException {
+		return getEleveAsJSONFromUsername(username).toString();
+	}
+
+	private JSONObject getEleveAsJSONFromUsername(String username)
+			throws ClientException, PropertyException {
 		CoreSession session = ctx.getCoreSession();
 
-		UserProfileService ups = getUserProfileService();
-		DocumentModel userProfile = ups.getUserProfileDocument(username,
-				session);
-
-		UserManager um = Framework.getLocalService(UserManager.class);
+		UserManager um = getUserManager();
 		DocumentModel user = um.getUserModel(username);
+
+		JSONObject json = getEleveAsJSON(session, user);
+
+		return json;
+	}
+
+	private JSONObject getEleveAsJSON(CoreSession session, DocumentModel user)
+			throws ClientException, PropertyException {
+		UserProfileService ups = getUserProfileService();
+		DocumentModel userProfile = ups.getUserProfileDocument(
+				(String) user.getPropertyValue("username"), session);
 
 		Map<String, Object> map = user.getProperties("user");
 		map.put("ecm:uuid", userProfile.getId());
 		map.put("ecm:path", userProfile.getPathAsString());
-		map.put("file:filename", ((Blob) userProfile
-				.getPropertyValue("userprofile:avatar")).getFilename());
+		Blob avatar = ((Blob) userProfile
+				.getPropertyValue("userprofile:avatar"));
+		if (avatar != null) {
+			map.put("file:filename", avatar.getFilename());
+			map.put("photoURL", "/nuxeo/nxfile/default/" + userProfile.getId()
+					+ "/userprofile:avatar/" + avatar.getFilename());
+		}
 		JSONObject json = new JSONObject(map);
+		return json;
+	}
 
+	@GET
+	@Path("search/eleve/{usernameCriteria}/{groupName}")
+	@Produces("text/json; charset=UTF-8")
+	public Object getSearchEleveInGroup(
+			@PathParam("usernameCriteria") String usernameCriteria,
+			@PathParam("groupName") String groupName) throws ClientException {
+		CoreSession session = ctx.getCoreSession();
+		UserManager um = getUserManager();
+
+		Map<String, Serializable> filter = new HashMap<String, Serializable>();
+		filter.put("company", groupName);
+
+		DocumentModelList users = um.searchUsers(filter,
+				Collections.singleton(usernameCriteria));
+
+		JSONArray json = new JSONArray();
+		for (DocumentModel user : users) {
+			json.put(getEleveAsJSON(session, user));
+		}
 		return json.toString();
 	}
 
+	@GET
+	@Path("search/eleve/{usernameCriteria}")
+	@Produces("text/json; charset=UTF-8")
+	public Object getSearchEleveInGroup(
+			@PathParam("usernameCriteria") String usernameCriteria)
+			throws ClientException {
+		CoreSession session = ctx.getCoreSession();
+		UserManager um = getUserManager();
+
+		DocumentModelList users = um.searchUsers(usernameCriteria);
+
+		JSONArray json = new JSONArray();
+		for (DocumentModel user : users) {
+			json.put(getEleveAsJSON(session, user));
+		}
+		return json.toString();
+	}
 
 	protected UserProfileService getUserProfileService() throws ClientException {
 		if (userProfileService == null) {

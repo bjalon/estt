@@ -21,7 +21,6 @@ angular.module('nuxeoBibliothequeFrontApp')
     	  $http({method: 'GET', url: '/nuxeo/site/front/livre/' + $scope.livreRef}).
 			success(function(data, status, headers, config) {
 			    $scope.livre = data;
-			    $scope.livre.jaquetteURL = '/nuxeo/nxfile/default/' + $scope.livre['ecm:uuid'] + '/blobholder:0/' + $scope.livre['file:filename'];
 		  }).
 		  error(function(data, status, headers, config) {
 		    $scope.invalidLivre();
