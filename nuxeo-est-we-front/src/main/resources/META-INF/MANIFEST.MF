@@ -1,10 +1,12 @@
+Manifest-Version: 1.0
+Nuxeo-WebModule: org.nuxeo.ecm.webengine.app.WebEngineModule;name=fron
+ t;extends=base;package=org/nuxeo/est/we/front
+Bundle-Vendor: Nuxeo
 Bundle-ActivationPolicy: lazy
 Bundle-ClassPath: .
-Manifest-Version: 1.0
-Bundle-Name: nuxeo-est-we-front
-Bundle-RequiredExecutionEnvironment: JavaSE-1.7
-Bundle-Vendor: Nuxeo
 Bundle-Version: 1.0.qualifier
+Bundle-Name: nuxeo-est-we-front
 Bundle-ManifestVersion: 2
 Bundle-SymbolicName: nuxeo-est-we-front
-Nuxeo-WebModule: org.nuxeo.ecm.webengine.app.WebEngineModule;name=front;extends=base;package=org/nuxeo/est/we/front
+Bundle-RequiredExecutionEnvironment: JavaSE-1.7
+
