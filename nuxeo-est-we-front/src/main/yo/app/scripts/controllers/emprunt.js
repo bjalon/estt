@@ -74,6 +74,8 @@ angular.module('nuxeoBibliothequeFrontApp')
     	$scope.reset = function() {
     	  $scope.eleve = null;
     	  $scope.invalidLivre();
+    	  $scope.username = null;
+    	  $scope.livreRef = null;
     	}
     	
     	$scope.emprunter = function() {
