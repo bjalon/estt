@@ -1,3 +1,65 @@
 <div>
-  recherche
-</div>
+    <form class="form-horizontal">
+        <!-- **************************** LIVRE ***************************** -->
+      	<div class="row" style="padding-top: 20px">
+      		<div class="col-sm-4 panel panel-default">
+    	  	  	<div class="form-group panel-body">
+                    <center style="padding: 10px;">
+                        <img height="100px" class="eleve" src="./images/livre.png" alt="eleve">
+                    </center>
+                    <div class="widget">
+          	  		  <input type="text" class="form-control" 
+          	  		    id="refLivre" placeholder="mot-clés">
+                    </div>
+                    <div class="widget">
+          	  		  <input type="text" class="form-control" 
+          	  		    id="refLivre" placeholder="Classement">
+                    </div>
+                    <div class="widget">
+          	  		  <input type="text" class="form-control" 
+          	  		    id="refLivre" placeholder="Référence">
+                    </div>
+                    <div class="widget">
+          	  		  <input type="text" class="form-control" 
+          	  		    id="refLivre" placeholder="Emprunteur">
+                    </div>
+    	  		</div>
+            </div>
+            <div ng-hide="livre['ecm:uuid'] == null">
+      	    <div class="col-sm-3">
+                <center>
+      		        <img height="150px" class="jaquette" ng-src="{{livre['jaquetteURL']}}" alt="jaquette">
+                </center>
+                <a href="{{livre['jaquetteURL']}}">hoho</a>
+    	    </div>
+    	    
+            <div ng-hide="livre['ecm:uuid'] == null" class="col-sm-5">
+              <div class="">
+                <label for="bookTitle">Titre</label>
+                <div id="bookTitle">{{livre['dc:title']}}</div>
+              </div>
+              <div class="">
+                <label for="bookDescription">Description</label>
+                <div id ="bookDescription">{{livre['dc:description']}}</div>
+              </div>
+              
+            </div>
+            </div>
+      	</div>
+
+
+        <!-- **************************** BUTTON ***************************** -->
+        <div class="row" style="padding-top: 20px">
+          <div class="col-sm-4 panel panel-default">
+            <div class="panel-body">
+              <button ng-click="emprunter()" class="btn btn-success">
+                <!--ng-disabled="form.$invalid || isUnchanged(user)">-->
+                Rechercher
+              </button>
+              <button ng-click="reset()" class="btn btn-error">
+                Annuler
+              </button>
+            </div>
+          </div>
+        </div>
+      </form></div>
