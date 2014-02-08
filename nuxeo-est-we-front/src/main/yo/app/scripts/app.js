@@ -3,6 +3,7 @@
 angular.module('nuxeoBibliothequeFrontApp', [
   'ngCookies',
   'ngResource',
+  'ngAnimate',
   'ngSanitize',
   'ngRoute',
   'ui.select2'
