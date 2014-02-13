@@ -11,6 +11,7 @@ import org.junit.runner.RunWith;
 import org.nuxeo.ecm.automation.test.AutomationFeature;
 import org.nuxeo.ecm.core.api.CoreSession;
 import org.nuxeo.ecm.core.api.DocumentModel;
+import org.nuxeo.ecm.platform.uidgen.UIDSequencer;
 import org.nuxeo.runtime.test.runner.Deploy;
 import org.nuxeo.runtime.test.runner.Features;
 import org.nuxeo.runtime.test.runner.FeaturesRunner;
@@ -34,12 +35,15 @@ public class ReferenceGenerationTestCase {
 
 	@Inject
 	CoreSession session;
+	
+	@Inject
+	UIDSequencer sequencer;
 
 	@Test
 	public void shouldGenerateReferences() throws Exception {
 		DocumentModel doc = session.createDocumentModel("Livre");
-		doc.setPropertyValue("livre:classe", "000");
-		doc.setPropertyValue("livre:isbn", "1");
+		doc.setPropertyValue("livre:classe", "200");
+		doc.setPropertyValue("livre:isbn", "2");
 		doc = session.createDocument(doc);
 		session.save();
 
@@ -48,13 +52,13 @@ public class ReferenceGenerationTestCase {
 		Assert.assertEquals("N/A",
 				doc.getPropertyValue("livre:trigrammeAuteur"));
 		Assert.assertEquals("1", doc.getPropertyValue("livre:referenceISBN"));
-		Assert.assertEquals("000-001-1",
+		Assert.assertEquals("200-001-1",
 				doc.getPropertyValue("livre:etiquetteCote"));
 		session.save();
 
 		doc = session.createDocumentModel("Livre");
-		doc.setPropertyValue("livre:classe", "000");
-		doc.setPropertyValue("livre:isbn", "1");
+		doc.setPropertyValue("livre:classe", "200");
+		doc.setPropertyValue("livre:isbn", "2");
 		doc = session.createDocument(doc);
 
 		Assert.assertEquals("001",
@@ -62,15 +66,16 @@ public class ReferenceGenerationTestCase {
 		Assert.assertEquals("N/A",
 				doc.getPropertyValue("livre:trigrammeAuteur"));
 		Assert.assertEquals("2", doc.getPropertyValue("livre:referenceISBN"));
-		Assert.assertEquals("000-001-2",
+		Assert.assertEquals("200-001-2",
 				doc.getPropertyValue("livre:etiquetteCote"));
+		
 	}
 
 	@Test
 	public void shouldGenerateReferencesForSubClasse() throws Exception {
 		DocumentModel doc = session.createDocumentModel("Livre");
 		doc.setPropertyValue("livre:classe", "900/910");
-		doc.setPropertyValue("livre:isbn", "2");
+		doc.setPropertyValue("livre:isbn", "3");
 		doc = session.createDocument(doc);
 		session.save();
 		
@@ -89,7 +94,7 @@ public class ReferenceGenerationTestCase {
 		DocumentModel doc = session.createDocumentModel("Livre");
 		doc.setPropertyValue("livre:classe", "800/840/R 840");
 		doc.setPropertyValue("livre:auteur", "hUgo victor");
-		doc.setPropertyValue("livre:isbn", "3");
+		doc.setPropertyValue("livre:isbn", "4");
 		doc = session.createDocument(doc);
 		session.save();
 		
@@ -108,7 +113,7 @@ public class ReferenceGenerationTestCase {
 		doc.setPropertyValue("livre:classe", "800/840/C 840");
 		doc.setPropertyValue("livre:auteur", "Victor Hugo");
 		doc.setPropertyValue("livre:trigrammeAuteur", "HUG");
-		doc.setPropertyValue("livre:isbn", "4");
+		doc.setPropertyValue("livre:isbn", "5");
 		doc = session.createDocument(doc);
 		session.save();
 		
