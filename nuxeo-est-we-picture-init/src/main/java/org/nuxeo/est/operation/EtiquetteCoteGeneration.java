@@ -21,17 +21,8 @@ public class EtiquetteCoteGeneration {
 
 	public static final String ID = "ReferenceGeneration";
 
-	// private static final Log log = LogFactory
-	// .getLog(EtiquetteCoteGeneration.class);
-
 	@Context
 	protected OperationContext ctx;
-
-	// @Param(name = "isbn")
-	// protected String isbn;
-	//
-	// @Param(name = "save")
-	// protected boolean save;
 
 	@OperationMethod(collector = DocumentModelCollector.class)
 	public DocumentModel run(DocumentModel input) throws Exception {
