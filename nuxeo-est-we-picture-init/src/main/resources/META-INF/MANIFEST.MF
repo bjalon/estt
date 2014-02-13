@@ -6,9 +6,11 @@ Bundle-ActivationPolicy: lazy
 Bundle-ClassPath: .
 Bundle-Version: 1.0.qualifier
 Bundle-Name: nuxeo-est-webengine
-Nuxeo-Component: OSGI-INF/extensions/org.nuxeo.est.operation.InitFromI
- SBN.xml,OSGI-INF/extensions/org.nuxeo.est.operation.EtiquetteCoteGeneration.xml
 Bundle-ManifestVersion: 2
+Nuxeo-Component: OSGI-INF/extensions/org.nuxeo.est.operation.InitFromI
+ SBN.xml,OSGI-INF/extensions/org.nuxeo.est.operation.EtiquetteCoteGene
+ ration.xml,OSGI-INF/extensions/org.nuxeo.est.operation.SynchronizeBoo
+ k.xml,OSGI-INF/extensions/org.nuxeo.est.operation.SynchronizeBook.xml
 Bundle-SymbolicName: nuxeo-est-webengine
 Bundle-RequiredExecutionEnvironment: JavaSE-1.7
 
