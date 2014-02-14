@@ -32,7 +32,7 @@ angular.module('nuxeoBibliothequeFrontApp')
     	}
         
     	$scope.fetchEleve = function() {
-    	  var username = $scope.username;
+    	  var username = $scope.query.term.id;
 
     	  $http({method: 'GET', url: '/nuxeo/site/front/eleve/' + username}).
 			success(function(data, status, headers, config) {
@@ -67,8 +67,11 @@ angular.module('nuxeoBibliothequeFrontApp')
     	$scope.params = $routeParams;
     	$scope.livreRef = $scope.params.livreRef;
     	
+    	$scope.goHome = function() { $location.path('/emprunt'); }
+    	
     	if ($scope.livreRef) {
     	  $scope.fetchLivre();
+		  setTimeout($scope.goHome(),5*100000);
     	}
     	
     	$scope.reset = function() {
@@ -79,7 +82,6 @@ angular.module('nuxeoBibliothequeFrontApp')
     	}
     	
     	$scope.emprunter = function() {
-    	  alert("emprunter");
     	  $location.path('/emprunt_resume/' + $scope.livreRef);
     	}
 

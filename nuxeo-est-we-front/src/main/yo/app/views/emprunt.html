@@ -41,7 +41,7 @@
                     <center style="padding: 10px;">
                         <img height="100px" class="eleve" src="./images/emprunteur.png" alt="eleve">
                     </center>
-                    <input type="hidden" ui-select2="select2eleveSetup" id="eleveIdentifiant" style="width: 100%;" ng-model="query.term" 
+                    <input type="hidden" ng-change="fetchEleve()" ui-select2="select2eleveSetup" id="eleveIdentifiant" style="width: 100%;" ng-model="query.term" 
                       placeholder="Nom de l'emprunteur - ex : Juliette JALON ou Classe 3" name="username">
                         <option value=""></option>
                     </select>
@@ -55,14 +55,14 @@
             </div>
             <div class="col-sm-5">
               <label>Prénom</label>
-              <div>{{eleve['firstname']}}</div>
+              <div>{{eleve['firstName']}}</div>
               <label>Nom</label>
-              <div>{{eleve['lastname']}}</div>
+              <div>{{eleve['lastName']}}</div>
             </div>
             
             </div>
         </div>
-        <!-- **************************** ELEVE ***************************** -->
+        <!-- **************************** BUTTON ***************************** -->
         <div class="row" style="padding-top: 20px">
           <div class="col-sm-4 panel panel-default">
             <div class="panel-body">
