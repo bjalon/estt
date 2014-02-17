@@ -32,6 +32,9 @@ angular.module('nuxeoBibliothequeFrontApp')
     	}
         
     	$scope.fetchEleve = function() {
+    	  if ($scope.query) {
+    	    return;
+    	  }
     	  var username = $scope.query.term.id;
 
     	  $http({method: 'GET', url: '/nuxeo/site/front/eleve/' + username}).
@@ -82,7 +85,12 @@ angular.module('nuxeoBibliothequeFrontApp')
     	}
     	
     	$scope.emprunter = function() {
-    	  $location.path('/emprunt_resume/' + $scope.livreRef);
+    	  alert($location.path());
+    	  $scope.livreRef = '006';
+    	  if ($scope.query.term) {
+            $scope.query.term.id = 'Administrator';
+    	  }
+    	  $location.path('/restitution');
     	}
 
     }); 
