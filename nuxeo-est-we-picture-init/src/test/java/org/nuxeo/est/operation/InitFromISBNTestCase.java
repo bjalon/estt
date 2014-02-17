@@ -119,6 +119,23 @@ public class InitFromISBNTestCase {
 	}
 
 	@Test
+	public void shouldGetBookTitleIfUnknowBookFromOpenLibrary() throws ClientException, IOException,
+			JSONException {
+		operation.save = false;
+		operation.isbn = "9780460876438";
+
+
+		try {
+			operation.run(doc);
+			Assert.assertEquals("The Red and the Black", doc.getTitle());
+			Assert.assertNotNull(doc.getPropertyValue("file:content"));
+			
+		} catch(UnknownHostException e) {
+			System.out.println("Can't execute test as google unreachable");
+		}
+	}
+
+	@Test
 	public void shouldCopyMetadataIfBookKnown() throws Exception {
 
 		DocumentModel doc = session.createDocumentModel("Livre");
