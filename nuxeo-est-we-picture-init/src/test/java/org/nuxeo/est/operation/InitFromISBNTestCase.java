@@ -61,6 +61,8 @@ public class InitFromISBNTestCase {
 
 	private DocumentModel book2;
 
+	private StringBlob icone2;
+
 	@Before
 	public void init() throws ClientException, ParseException {
 		doc = session.createDocumentModel("Livre");
@@ -71,6 +73,7 @@ public class InitFromISBNTestCase {
 		cal = DateParser.parse("1997-07-16T19:20:30.045+02:00");
 		cal2 = DateParser.parse("1997-07-17T19:20:30.045+02:00");
 		icone = new StringBlob("Text1");
+		icone2 = new StringBlob("Text2");
 
 		book1 = session.createDocumentModel("Livre");
 		book1.setPropertyValue("livre:classe", "000");
@@ -135,7 +138,7 @@ public class InitFromISBNTestCase {
 		doc.setPropertyValue("livre:classe", "010");
 		doc.setPropertyValue("livre:trigrammeAuteur", "TRA");
 		doc.setPropertyValue("livre:etat", "Etat 2");
-		doc.setPropertyValue("livre:icone", icone);
+		doc.setPropertyValue("livre:icone", icone2);
 		doc.setPropertyValue("livre:editeur", "Editeur 2");
 		doc.setPropertyValue("livre:dateParution", cal2);
 		doc.setPropertyValue("livre:auteur", "Auteur 2");

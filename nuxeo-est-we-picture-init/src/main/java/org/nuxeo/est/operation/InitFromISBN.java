@@ -147,6 +147,9 @@ public class InitFromISBN {
                 sb.append(inputLine);
             }
             JSONObject jso = new JSONObject(sb.toString());
+            if (!jso.has(isbn)) {
+            	return;
+            }
             JSONObject metadata = jso.getJSONObject(isbn);
             String bib_key = metadata.getString("bib_key");
             if (bib_key != null) {
