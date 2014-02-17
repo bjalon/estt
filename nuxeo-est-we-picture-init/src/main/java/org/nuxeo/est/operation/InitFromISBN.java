@@ -15,6 +15,8 @@ import java.net.URL;
 import java.util.Calendar;
 
 import org.apache.commons.io.IOUtils;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.nuxeo.ecm.automation.OperationContext;
@@ -43,7 +45,7 @@ public class InitFromISBN {
 
 	private static final String QUERY_ISBN = "SELECT * FROM Livre WHERE livre:isbn = '%s'";
 
-//	private static final Log log = LogFactory.getLog(InitFromISBN.class);
+	private static final Log log = LogFactory.getLog(InitFromISBN.class);
 
 	@Context
 	protected OperationContext ctx;
@@ -148,6 +150,7 @@ public class InitFromISBN {
             }
             JSONObject jso = new JSONObject(sb.toString());
             if (!jso.has(isbn)) {
+            	log.error("Open Library return nothing about " + isbn);
             	return;
             }
             JSONObject metadata = jso.getJSONObject(isbn);
