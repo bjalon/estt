@@ -16,13 +16,17 @@ public class AssertLivre {
 			String description, String classe, String trigramme, Blob icone,
 			String etat, String editeur, String auteur, Calendar dateParution)
 			throws PropertyException, ClientException, IOException {
-		Assert.assertEquals(isbn, doc.getPropertyValue("livre:isbn"));
 		Assert.assertEquals(title, doc.getPropertyValue("dc:title"));
+		Assert.assertEquals(isbn, doc.getPropertyValue("livre:isbn"));
 		Assert.assertEquals(classe, doc.getPropertyValue("livre:classe"));
 		Assert.assertEquals(trigramme,
 				doc.getPropertyValue("livre:trigrammeAuteur"));
+		if (icone != null) {
 		Assert.assertEquals(icone.getString(),
 				((Blob) doc.getPropertyValue("livre:icone")).getString());
+		} else {
+			Assert.assertNull(doc.getPropertyValue("livre:icone"));
+		}
 		Assert.assertEquals(etat, doc.getPropertyValue("livre:etat"));
 		Assert.assertEquals(editeur, doc.getPropertyValue("livre:editeur"));
 		Assert.assertEquals(auteur, doc.getPropertyValue("livre:auteur"));
