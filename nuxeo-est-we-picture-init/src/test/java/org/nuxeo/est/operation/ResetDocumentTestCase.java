@@ -5,11 +5,8 @@
 package org.nuxeo.est.operation;
 
 import java.io.IOException;
-import java.net.UnknownHostException;
 import java.text.ParseException;
 import java.util.Calendar;
-
-import junit.framework.Assert;
 
 import org.json.JSONException;
 import org.junit.Before;
@@ -51,11 +48,11 @@ public class ResetDocumentTestCase {
 
 	private DocumentModel book;
 
-	private ResetOperation reset;
+	private ResetDocument reset;
 
 	@Before
 	public void init() throws ClientException, ParseException {
-		reset = new ResetOperation();
+		reset = new ResetDocument();
 
 		cal = DateParser.parse("1997-07-16T19:20:30.045+02:00");
 		icone = new StringBlob("Text1");
