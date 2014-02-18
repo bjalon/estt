@@ -2,6 +2,7 @@
 .metadata
 .mylar
 .pmd
+.DS_Store
 
 # common stuff
 .classpath
