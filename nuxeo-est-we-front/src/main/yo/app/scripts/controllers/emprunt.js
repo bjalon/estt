@@ -32,7 +32,7 @@ angular.module('nuxeoBibliothequeFrontApp')
     	}
         
     	$scope.fetchEleve = function() {
-    	  if ($scope.query) {
+    	  if (!$scope.query || !$scope.query.term || !$scope.query.term.id) {
     	    return;
     	  }
     	  var username = $scope.query.term.id;
