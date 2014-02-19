@@ -88,11 +88,18 @@ angular.module('nuxeoBibliothequeFrontApp')
     	}
     	
     	$scope.emprunter = function() {
-    	  $scope.livreRef = '006';
-    	  if ($scope.query.term) {
-            $scope.query.term.id = 'Administrator';
-    	  }
-    	  $location.path('/restitution');
+          $http({method: 'GET', url: '/nuxeo/site/front/borrow/' + $scope.livre['ecm:uuid'] + '/' + $scope.eleve['username']}).
+             success(function(data, status, headers, config) {
+               if (data == 'success') {
+                 $location.path('/emprunt_resume/' + $scope.livre['ecm:uuid']);
+               } else {
+                 $scope.message = 'Un problème a eu lieu, veuillez contacter l\'administrateur\n' + data;
+               }
+          }).
+          error(function(data, status, headers, config) {
+            $scope.message = 'Un problème a eu lieu, veuillez contacter l\'administrateur';
+          });
+    	  
     	}
     	
     	var checkBorrowRequest = function() {
