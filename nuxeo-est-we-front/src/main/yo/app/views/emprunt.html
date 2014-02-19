@@ -66,7 +66,7 @@
         <div class="row" style="padding-top: 20px">
           <div class="col-sm-4 panel panel-default">
             <div class="panel-body">
-              <button ng-click="emprunter()" class="btn btn-success">
+              <button ng-disabled="!canBorrow" ng-click="emprunter()" class="btn btn-success">
                 <!--ng-disabled="form.$invalid || isUnchanged(user)">-->
                 Emprunter
               </button>

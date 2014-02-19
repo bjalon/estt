@@ -4,6 +4,8 @@ angular.module('nuxeoBibliothequeFrontApp')
     .controller('EmpruntCtrl', function ($routeParams, $scope, $http, $location) {
     
         var idSize = 3;
+        $scope.canBorrow = false;
+        
 
         $scope.isIdLivreValide = function () {
             if ($scope.livreRef) {
@@ -79,19 +81,30 @@ angular.module('nuxeoBibliothequeFrontApp')
     	
     	$scope.reset = function() {
     	  $scope.eleve = null;
+    	  $scope.query = null;
     	  $scope.invalidLivre();
     	  $scope.username = null;
     	  $scope.livreRef = null;
     	}
     	
     	$scope.emprunter = function() {
-    	  alert($location.path());
     	  $scope.livreRef = '006';
     	  if ($scope.query.term) {
             $scope.query.term.id = 'Administrator';
     	  }
     	  $location.path('/restitution');
     	}
+    	
+    	var checkBorrowRequest = function() {
+    	  if (!$scope.eleve || !$scope.livre) {
+    	    $scope.canBorrow = false;
+    	  } else {
+    	    $scope.canBorrow = true;
+    	  }
+    	}
 
+    	$scope.$watch('eleve', checkBorrowRequest);
+    	$scope.$watch('livre', checkBorrowRequest);
+    	
     }); 
 
