@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="estt" basedir="." default="deploy">
+
+    <target name="clean" description="Delete all generated files">
+      <exec executable="mvn">
+        <arg value="clean"/>
+      </exec>
+    </target>
+
+    <target name="compile" description="Compiles the Task">
+      <exec executable="mvn">
+        <arg value="install"/>
+        <arg value="-o"/>
+      </exec>
+    </target>
+
+    <target name="deploy" description="Deploy into server">
+      <exec executable="pwd">
+      </exec>
+      <exec executable="scp">
+        <arg value="/opt/wks/src/projets/estt/nuxeo-est-we-front/target/nuxeo-est-we-front-1.0-SNAPSHOT.jar"/>
+        <arg value="/opt/wks/src/projets/estt/nuxeo-est-we-picture-init/target/nuxeo-est-we-picture-init-1.0-SNAPSHOT.jar"/>
+        <arg value="nuxeo@estt.local:/var/lib/nuxeo/server/nxserver/bundles"/>
+      </exec>
+    </target>
+
+    <target name="cb" description="Deploy into server" depends="compile">
+    </target>
+</project>

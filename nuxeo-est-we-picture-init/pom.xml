@@ -3,17 +3,16 @@
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <parent>
-    <groupId>org.nuxeo.ecm.platform</groupId>
-    <artifactId>nuxeo-features-parent</artifactId>
-    <version>5.8</version>
+    <groupId>org.nuxeo.est.we</groupId>
+    <artifactId>nuxeo-est-parent</artifactId>
+    <version>1.0-SNAPSHOT</version>
+    <relativePath>../pom.xml</relativePath>
   </parent>
   <groupId>org.nuxeo.est</groupId>
   <artifactId>nuxeo-est-we-picture-init</artifactId>
-  <version>1.0-SNAPSHOT</version>
   <name>nuxeo-est-webengine</name>
   <description>
     WebEngine Application exposing site web to inject from mobile front book picture into Livre Doc Type
-
   </description>
   <dependencies>
     <dependency>
@@ -81,7 +80,27 @@
     <dependency>
       <groupId>nuxeo-studio</groupId>
       <artifactId>gestion-bibliotheque-ecole-sainte-therese</artifactId>
-      <version>0.0.0-SNAPSHOT</version>
+    </dependency>
+    <dependency>
+      <groupId>commons-logging</groupId>
+      <artifactId>commons-logging</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.nuxeo.ecm.core</groupId>
+      <artifactId>nuxeo-core-api</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.nuxeo.ecm.platform</groupId>
+      <artifactId>nuxeo-platform-uidgen-core</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.nuxeo.runtime</groupId>
+      <artifactId>nuxeo-runtime</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.nuxeo.ecm.automation</groupId>
+      <artifactId>nuxeo-automation-client</artifactId>
+      <scope>test</scope>
     </dependency>
   </dependencies>
   <build>
