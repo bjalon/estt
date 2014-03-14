@@ -1,0 +1,8 @@
+<component name="org.nuxeo.est.operation.ResetDocument">
+
+  <extension target="org.nuxeo.ecm.core.operation.OperationServiceComponent"
+    point="operations" >
+      <operation class="org.nuxeo.est.operation.ResetDocument" />
+   </extension>
+    
+</component>
