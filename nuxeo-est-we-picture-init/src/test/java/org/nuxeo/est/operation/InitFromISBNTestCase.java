@@ -128,8 +128,26 @@ public class InitFromISBNTestCase {
 		try {
 			operation.run(doc);
 			Assert.assertEquals("The Red and the Black", doc.getTitle());
-			Assert.assertNotNull(doc.getPropertyValue("file:content"));
+			Assert.assertEquals("Stendhal", doc.getPropertyValue("livre:auteur"));
+			Assert.assertEquals("Everyman Paperbacks", doc.getPropertyValue("livre:editeur"));
+			Assert.assertNotNull(doc.getPropertyValue("livre:dateParution"));
+//			Assert.assertNotNull(doc.getPropertyValue("file:content"));
 			
+		} catch(UnknownHostException e) {
+			System.out.println("Can't execute test as google unreachable");
+		}
+	}
+
+	@Test
+	public void shouldGetBookTitleIfUnknowBookFromGoogle() throws ClientException, IOException,
+			JSONException {
+		operation.save = false;
+		operation.isbn = "2707178225";
+
+
+		try {
+			operation.run(doc);
+			Assert.assertNull(doc.getTitle());
 		} catch(UnknownHostException e) {
 			System.out.println("Can't execute test as google unreachable");
 		}

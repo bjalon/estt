@@ -61,10 +61,9 @@ public class InitFromISBN {
 	@OperationMethod(collector = DocumentModelCollector.class)
 	public DocumentModel run(DocumentModel input) throws IOException,
 			JSONException, PropertyException, ClientException {
-		
-		
+
 		CoreSession session = ctx.getCoreSession();
-				
+
 		DocumentModel doc = input;
 		String isbn = (String) doc.getPropertyValue("livre:isbn");
 		DocumentModelList relatedDocs = session.query(String.format(QUERY_ISBN,
@@ -99,7 +98,7 @@ public class InitFromISBN {
 			doc.setPropertyValue("dc:description", description);
 			return doc;
 		}
-		
+
 		fetchBookFromGoogle();
 		fetchBookFromOpenLibrary();
 
@@ -124,81 +123,103 @@ public class InitFromISBN {
 				+ isbnNormalized);
 		InputStream is = url.openConnection().getInputStream();
 
-		bookInfo = new JSONObject(inputStreamToString(is))
-				.getJSONArray("items").getJSONObject(0);
+		JSONObject jsonObject = new JSONObject(inputStreamToString(is));
+
+		if (jsonObject.has("items")) {
+			bookInfo = jsonObject.getJSONArray("items").getJSONObject(0);
+		} else {
+			log.error("no answer from Google");
+		}
 
 	}
 
-	
-    public static final String QUERY_ISBN_URL = "http://openlibrary.org/api/books?bibkeys=%s&format=json";
-    
-	private void fetchBookFromOpenLibrary(
-			) throws MalformedURLException,
+	public static final String QUERY_ISBN_URL = "http://openlibrary.org/api/books?bibkeys=%s&format=json";
+
+	private void fetchBookFromOpenLibrary() throws MalformedURLException,
 			IOException, JSONException, ClientException {
-        String isbn = "ISBN:".concat(this.isbn.replaceAll("[_-]", ""));
-        String query = String.format(QUERY_ISBN_URL, isbn);
-        URL url = new URL(query);
-        HttpURLConnection urlConnection = null;
-        try {
-            urlConnection = (HttpURLConnection) url.openConnection();
-            BufferedReader in = new BufferedReader(new InputStreamReader(
-                    urlConnection.getInputStream()));
-            StringBuffer sb = new StringBuffer();
-            String inputLine;
-            while ((inputLine = in.readLine()) != null) {
-                sb.append(inputLine);
-            }
-            JSONObject jso = new JSONObject(sb.toString());
-            if (!jso.has(isbn)) {
-            	log.error("Open Library return nothing about " + isbn);
-            	return;
-            }
-            JSONObject metadata = jso.getJSONObject(isbn);
-            String bib_key = metadata.getString("bib_key");
-            if (bib_key != null) {
-            	System.out.println(" :" + bib_key);
-//                input.setPropertyValue("isbn:bib_key", bib_key);
-            }
-            String info_url = metadata.getString("info_url");
-            if (info_url != null) {
-            	System.out.println(" :" + info_url);
-//                input.setPropertyValue("isbn:info_url", info_url);
-            }
-            String preview = metadata.getString("preview");
-            if (preview != null) {
-            	System.out.println(" :" + preview);
-//                input.setPropertyValue("isbn:preview", preview);
-            }
-            String preview_url = metadata.getString("preview_url");
-            if (preview_url != null) {
-            	System.out.println(" :" + preview_url);
-//                input.setPropertyValue("isbn:preview_url", preview_url);
-            }
-            String thumbnail_url = metadata.getString("thumbnail_url");
-            if (thumbnail_url != null) {
-            	System.out.println(" :" + thumbnail_url);
-//                input.setPropertyValue("isbn:thumbnail_url", thumbnail_url);
-            }
-            in.close();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        } finally {
-            if (urlConnection != null) {
-                urlConnection.disconnect();
-            }
-        }
+		String isbn = "ISBN:".concat(this.isbn.replaceAll("[_-]", ""));
+		String query = String.format(QUERY_ISBN_URL, isbn);
+		URL url = new URL(query);
+		HttpURLConnection urlConnection = null;
+		try {
+			urlConnection = (HttpURLConnection) url.openConnection();
+			BufferedReader in = new BufferedReader(new InputStreamReader(
+					urlConnection.getInputStream()));
+			StringBuffer sb = new StringBuffer();
+			String inputLine;
+			while ((inputLine = in.readLine()) != null) {
+				sb.append(inputLine);
+			}
+			JSONObject jso = new JSONObject(sb.toString());
+			if (!jso.has(isbn)) {
+				log.error("Open Library return nothing about " + isbn);
+				return;
+			}
+			JSONObject metadata = jso.getJSONObject(isbn);
+			String bib_key = metadata.getString("bib_key");
+			if (bib_key != null) {
+				System.out.println(" :" + bib_key);
+				// input.setPropertyValue("isbn:bib_key", bib_key);
+			}
+			String info_url = metadata.getString("info_url");
+			if (info_url != null) {
+				System.out.println(" :" + info_url);
+				// input.setPropertyValue("isbn:info_url", info_url);
+			}
+			String preview = metadata.getString("preview");
+			if (preview != null) {
+				System.out.println(" :" + preview);
+				// input.setPropertyValue("isbn:preview", preview);
+			}
+			String preview_url = metadata.getString("preview_url");
+			if (preview_url != null) {
+				System.out.println(" :" + preview_url);
+				// input.setPropertyValue("isbn:preview_url", preview_url);
+			}
+			String thumbnail_url = metadata.getString("thumbnail_url");
+			if (thumbnail_url != null) {
+				System.out.println(" :" + thumbnail_url);
+				// input.setPropertyValue("isbn:thumbnail_url", thumbnail_url);
+			}
+			in.close();
+		} catch (IOException e) {
+			throw new RuntimeException(e);
+		} finally {
+			if (urlConnection != null) {
+				urlConnection.disconnect();
+			}
+		}
 	}
 
 	private void updateFromBookInfo(DocumentModel doc) throws JSONException,
 			PropertyException, ClientException {
+		if (bookInfo == null) {
+			return;
+		}
 		JSONObject volInfo = bookInfo.getJSONObject("volumeInfo");
 
-		if (volInfo.getString("title") != null) {
+		if (volInfo.has("title")) {
 			doc.setPropertyValue("dc:title", volInfo.getString("title"));
 		}
-		if (volInfo.getJSONArray("authors") != null) {
+		if (volInfo.has("authors")) {
 			doc.setPropertyValue("livre:auteur", volInfo
-					.getJSONArray("authors").join(","));
+					.getJSONArray("authors").join(",").replace("\"", ""));
+		}
+		if (volInfo.has("publisher")) {
+			doc.setPropertyValue("livre:editeur",
+					volInfo.getString("publisher"));
+		}
+		if (volInfo.has("publishedDate")) {
+			String date = volInfo.getString("publishedDate");
+			Calendar cal = Calendar.getInstance();
+			cal.setTimeInMillis(0);
+			if (date.contains("-")) {
+				String[] elt = date.split("-");
+				cal.set(Integer.parseInt(elt[0]), Integer.parseInt(elt[1]), Integer.parseInt(elt[2]), 0, 0, 1);
+			} else {
+				cal.set(Integer.parseInt(date), 1, 1, 0, 0, 1);
+			}
+			doc.setPropertyValue("livre:dateParution", cal);
 		}
 
 	}
